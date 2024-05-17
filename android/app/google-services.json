@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "3124745814",
+    "project_id": "fir-auth-c1698",
+    "storage_bucket": "fir-auth-c1698.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3124745814:android:4276cad016f9b817190df7",
+        "android_client_info": {
+          "package_name": "com.example.bitirme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgUSdjoY-RUyqAUET_Z3lNqb2RbyfjrmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
