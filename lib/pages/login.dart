@@ -39,21 +39,12 @@ class _LoginFormState extends State<LoginForm> {
       // Giriş başarılı olduğunda yapılacak işlemler burada gerçekleştirilebilir.
       if (kDebugMode) {
         print('User logged in: ${userCredential.user?.email}');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Giriş Başarılı')));
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        if (kDebugMode) {
-          print('No user found for that email.');
-        }
-      } else if (e.code == 'wrong-password') {
-        if (kDebugMode) {
-          print('Wrong password provided for that user.');
-        }
-      } else {
-        if (kDebugMode) {
-          print('Error: ${e.message}');
-        }
-      }
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message.toString())));
     } catch (e) {
       if (kDebugMode) {
         print('Error: ${e.toString()}');

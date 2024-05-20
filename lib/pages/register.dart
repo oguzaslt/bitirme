@@ -53,21 +53,12 @@ class _RegisterFormState extends State<RegisterForm> {
 
       if (kDebugMode) {
         print('User registered: ${userCredential.user?.email}');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Kullanıcı kaydı başarılı')));
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        if (kDebugMode) {
-          print('The password provided is too weak.');
-        }
-      } else if (e.code == 'email-already-in-use') {
-        if (kDebugMode) {
-          print('The account already exists for that email.');
-        }
-      } else {
-        if (kDebugMode) {
-          print('Error: ${e.message}');
-        }
-      }
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message.toString())));
     } catch (e) {
       if (kDebugMode) {
         print('Error: ${e.toString()}');
