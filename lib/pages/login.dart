@@ -2,6 +2,8 @@ import 'package:bitirme/pages/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:bitirme/pages/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -35,8 +37,18 @@ class _LoginFormState extends State<LoginForm> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await FirebaseFirestore.instance
+            .collection('kullanicilar')
+            .doc(user.uid)
+            .update({'active': true});
+      }
       // Giriş başarılı olduğunda yapılacak işlemler burada gerçekleştirilebilir.
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
       if (kDebugMode) {
         print('User logged in: ${userCredential.user?.email}');
         ScaffoldMessenger.of(context)
@@ -73,7 +85,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             obscureText: true,
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 30.0),
           ElevatedButton(
             onPressed: () {
               _login(); //Put the homescreen route here!
@@ -88,8 +100,7 @@ class _LoginFormState extends State<LoginForm> {
                 MaterialPageRoute(builder: (context) => const RegisterScreen()),
               );
             },
-            child: const Text(
-                "Henüz bir hesabınız yok mu? O zaman hemen kaydolun!"),
+            child: const Text("Dont have account? Click to Register"),
           ),
         ],
       ),

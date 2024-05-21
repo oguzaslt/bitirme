@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bitirme/pages/home.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -49,12 +50,17 @@ class _RegisterFormState extends State<RegisterForm> {
         'ad': _nameController.text,
         'mail': _emailController.text,
         'sifre': _hashPassword(_passwordController.text), // Şifreyi hashle
+        'active': true,
       });
-
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+        (Route<dynamic> route) => false,
+      );
       if (kDebugMode) {
         print('User registered: ${userCredential.user?.email}');
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Kullanıcı kaydı başarılı')));
+            .showSnackBar(SnackBar(content: Text('Succesfully Registered')));
       }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
